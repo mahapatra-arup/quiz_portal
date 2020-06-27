@@ -1,0 +1,224 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a class="brand-link elevation-4" href="/">
+    <img class="brand-image img-circle elevation-3" style="opacity: .8" alt="Logo" src="/media/logo/favicon.png">
+    <span class="brand-text font-weight-light">Pytube</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <!-- <img class="img-circle elevation-2" alt="User Image" src="logo/user.png"> -->
+        <i class="nav-icon fas fa-user-circle fa-2x w3-text-white"></i>
+      </div>
+      <div class="info">
+        <a class="d-block" href="#"> {{request.user}}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-widget="treeview" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+        </li>
+       
+        <!-- ==Subject Topic==-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fas fa-book-open"></i>
+            <p>
+              Subject Topic
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'subject_topic_list' %}">
+                <i class="fa fa-table nav-icon"></i>
+                <p>List View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'subject_topic_add' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+        <!-- ==Question==-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>
+              Question
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_list' %}">
+                <i class="fa fa-table nav-icon"></i>
+                <p>List View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_add' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+        <!-- ==Question Set==-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fa fa-object-group"></i>
+            <p>
+              Question Set
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_set_list' %}">
+                <i class="fa fa-table nav-icon"></i>
+                <p>List View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_set_add' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+
+            
+          </ul>
+        </li>
+        
+
+        <!-- Question ans Set===-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>
+              Question ans Set
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_and_set' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_and_set_addview' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+        <!-- Question Paper===-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>
+              Question Paper
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_paper_list' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'question_paper_add' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+        <!-- Exam===-->
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>
+              Exam
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'exam_list' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>View</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'exam_add' %}">
+                <i class="far fa-plus-square nav-icon"></i>
+                <p>Create</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Subject Topic
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li> -->
+        
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p>Informational</p>
+          </a>
+        </li> -->
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

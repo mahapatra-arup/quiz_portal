@@ -1,0 +1,176 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block extra_css %}
+<style>
+  [id*=tblQuestionandSet] tr:hover,
+  tr.selected {
+    background-color: #FFCF8B
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">   
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title"> <span>Question and QuestionSet</span>
+    </h3>
+
+
+  </div>
+
+  <div class="card-body">
+    <div class="alert alert-info" role="alert"><strong class="fa fa-info-circle"></strong> &nbsp;Support : Drag and Drop Table Row Sorting(Order By Questions Set and Question Configure) <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button></div>
+      
+    <!-- question set -->
+    <form method="get" action="{% url 'question_and_set' %}">
+      <div class="form-group">
+        <label>Set Name </label>
+        <select class="form-control" name="ques_set" id="ques_set">
+          {% for ques_set in question_sets %}
+          <option value="{{ ques_set.slug }}" {% if ques_set.slug == question_set_slug %}selected{% endif %}>
+            {{ ques_set.name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="float-right btn btn-primary w3-margin "><i class="fa fa-search"> </i>
+          &nbsp;Fetch</button>
+      </div>
+    </form>
+    <!-- //question set -->
+
+    <!-- class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered" -->
+    <div class="table-responsive">
+      <table id="tblQuestionandSet" class="w3-table-all">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th style="display:none;">id</th>
+            <!-- -->
+            <th>Summary</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Points</th>
+            <th>Subject Topic</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+          {% for ques_and_set in obj_question_and_set %}
+          <tr>
+            <!-- cell - 0 -->
+            <td class="bg-gradient-cyan">
+              {{ forloop.counter }}
+            </td>
+
+            <td class="clsquesId" style="display:none;" >{{ ques_and_set.id }}</td>
+
+            <!-- cell - 1 -->
+            <td>{{ ques_and_set.question.summary }}</td>
+            <!-- cell - 2 -->
+            <td>{{ ques_and_set.question.type }}</td>
+            <td>{{ ques_and_set.question.description }}</td>
+            <td class="text-right">{{ question.points }}</td>
+            <td>{{ ques_and_set.question.subject_topic }}</td>
+
+            <td>
+              <a href="{% url 'question_and_set_delete' ques_and_set.id %}" data-toggle="tooltip" class="w3-tiny btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+            </td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="100%">
+              <div class="alert alert-warning" role="alert"><strong class="fa fa-memory"></strong> &nbsp;There are no
+                data are here !</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <input id="btnGet" type="button" value="Save" class="w3-margin-top btn btn-primary float-right" />
+
+    </div>
+
+  </div>
+</div>
+<!-- /.card -->
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  // $('tbody').sortable();
+
+  //Table Data slno Update time use------->
+   $(function () {
+    $("[id*=tblQuestionandSet]").sortable({
+      items: 'tr',
+      cursor: 'pointer',
+      axis: 'y',
+      dropOnEmpty: false,
+      start: function (e, ui) {
+        ui.item.addClass("selected");
+      },
+      stop: function (e, ui) {
+        ui.item.removeClass("selected");
+      },
+      receive: function (e, ui) {
+        $(this).find("tbody").append(ui.item);
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function () {
+   
+    $("#btnGet").click(function () {
+
+      var question_data_ary = [];
+     
+      //Loop For Table
+      $("#tblQuestionandSet .clsquesId").each(function () { 
+
+        //row data
+        var row = $(this).closest("tr")[0];
+
+        //data get and fill
+        var question_data = {};
+        question_data.id = row.cells[1].innerHTML;
+        
+        // array  Fill
+        question_data_ary.push(question_data);
+      });
+
+      //Data Convert to json
+      question_data_ary = JSON.stringify(question_data_ary)
+
+      //Post Request
+      var request = $.ajax({
+        url: "{% url 'question_and_set_ordering' %}",
+        type: 'POST',
+        data: {
+          //All Data Convert Must be json Formate
+          question_data_ary: question_data_ary,
+        },
+      });
+
+      request.done(function (response) {
+        alert(response)
+        //success then reload
+        // location.reload()
+      });
+
+      request.fail(function (jqXHR, status) {
+        alert(status);
+      });
+
+      return false;
+    });
+  });
+</script>
+{% endblock %}

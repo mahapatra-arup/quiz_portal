@@ -1,0 +1,24 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block content %}
+<div class="w3-container">
+    <div id="id01" class="w3-modal" style="display:block!important;">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:400px">
+
+            <div class="w3-center"><br>
+                <i class="w3-margin-top  w3-text-red fa fa-times-circle fa-5x"></i>
+            </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <p class= "text-center w3-padding-large">Are you sure you want to delete "{{ object }}"?</p>
+
+                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                        <input type="submit" name="cancel" value="Cancel" class="btn btn-danger" />
+                        <input type="submit" value="Confirm" class="w3-right btn btn-primary" />
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block content %}
+<div class="card card-warning card-outline">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-leaf"></i>
+      Subject Topic
+    </h3>
+
+    <span class="float-right"><a href="{% url 'subject_topic_add' %}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+     <table class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+       <thead>
+        <tr class="w3-green">
+          <th></th>
+          <th>Subject</th>
+          <th>Name</th>
+          <th>Create by</th>
+          <th>Active</th>
+          <th>Updated on</th>
+          <th>Action</th>
+       </thead>
+
+       <tbody>
+        {% for subject_topic in obj_subject_topic %}
+        <tr>
+          <td>
+            {{ forloop.counter }}.
+           
+        </td>
+          <td>{{ subject_topic.subject }}</td>
+          <td>{{ subject_topic.name }}</td>
+          <td>{{ subject_topic.create_by }}</td>
+         <!-- Activity -->
+         <td>{% if subject_topic.is_active %}<i class="w3-text-green fa fa-circle" data-toggle="tooltip" title="Active"></i>{% else %}<i data-toggle="tooltip" class="w3-text-red fa fa-circle" title="Not Active"></i>{% endif %}</td>
+          <td>{{ subject_topic.updated_on }}</td>
+
+          <td><a href="#" class="w3-text-red fa fa-pencil-alt" data-toggle="tooltip" title="Edit/Delete only for Admin" > Not Support</a>
+            <!-- <a href="#" class="btn btn-danger">Delete(Not Support)</a> -->
+          </td>
+        </tr>
+        {% empty %}
+        <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no Subject are here !</div>
+        {% endfor %}
+       </tbody>
+     </table>
+   </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block content %}
+
+
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title"> <span>Question and QuestionSet</span>
+    </h3>
+
+  
+  </div>
+
+  <div class="card-body">
+
+    <!-- question set -->
+    <form method="get" action="{% url 'question_and_set_addview' %}">
+      <div class="form-group">
+        <label>Set Name </label>
+        <select class="form-control" name="ques_set" id="ques_set">
+          {% for ques_set in question_sets %}
+          <option value="{{ ques_set.slug }}" {% if ques_set.slug == question_set_slug %}selected{% endif %}>
+            {{ ques_set.name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="float-right btn btn-primary w3-margin "><i class="fa fa-search"> </i> &nbsp;Fetch</button>
+      </div>
+    </form>
+    <!-- //question set -->
+
+    <div class="table-responsive">
+      <table id="tblCreateQuestionSet" class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th>id</th>
+            <!--style="display:none;" -->
+            <th>Summary</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Points</th>
+            <th>Subject Topic</th>
+        </thead>
+
+        <tbody>
+          {% for question in questions %}
+          <tr>
+            <!-- cell - 0 -->
+            <td class="bg-gradient-cyan">
+              {{ forloop.counter }}
+              <input type="checkbox" class="w3-check" />
+            </td>
+
+            <td>{{ question.id }}</td>
+
+            <!-- cell - 1 -->
+            <td>{{ question.summary }}</td>
+            <!-- cell - 2 -->
+            <td>{{ question.type }}</td>
+            <td>{{ question.description }}</td>
+            <td class="text-right">{{ question.points }}</td>
+            <td>{{ question.subject_topic }}</td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="100%">
+              <div class="alert alert-warning" role="alert"><strong class="fa fa-memory"></strong> &nbsp;There are no
+                data are here !</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <input id="btnGet" type="button" value="Save" class="w3-margin-top btn btn-primary float-right" />
+
+    </div>
+
+  </div>
+</div>
+<!-- /.card -->
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  $(function () {
+    //Assign Click event to Button.
+    $("#btnGet").click(function () {
+      //Set ID
+      var ques_set = $("#ques_set").val();
+      var question_data_ary = [];
+
+      //Loop through all checked CheckBoxes in GridView.
+      $("#tblCreateQuestionSet input[type=checkbox]:checked").each(function () {
+        //row data
+        var row = $(this).closest("tr")[0];
+
+        //data get and fill
+        var question_data = {};
+        question_data.id = row.cells[1].innerHTML;
+
+        // array  Fill
+        question_data_ary.push(question_data);
+      });
+
+      //Data Convert to json
+      question_data_ary = JSON.stringify(question_data_ary)
+      ques_set_slug = JSON.stringify(ques_set)
+
+      //Post Request
+      var request = $.ajax({
+        url: "{% url 'question_and_set_create' %}",
+        type: 'POST',
+        data: {
+          //All Data Convert Must be json Formate
+          question_data_ary: question_data_ary,
+          ques_set_slug: ques_set_slug
+        },
+      });
+
+      request.done(function (response) {
+        alert(response)
+        //success then reload
+        location.reload()
+      });
+
+      request.fail(function (jqXHR, status) {
+        alert(status);
+      });
+
+      //Display selected Row data in Alert Box.
+      // alert(question_data_ary);
+
+      return false;
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block content %}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-leaf"></i>
+      Question Set
+    </h3>
+
+    <span class="float-right"><a href="{% url 'question_set_add' %}" class="btn btn-primary"><i
+          class="fa fa-plus"></i> Add New</a></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th>Name</th>
+            <th>Order By</th>
+            <th>Active</th>
+            <th>Update On</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+          {% for question_set in obj_question_set %}
+          <tr>
+            <td class="bg-gradient-gray">
+              {{ forloop.counter }}.
+            </td>
+
+            <td>{{ question_set.name }}</td>
+            <td>{{ question_set.order_by }}</td>
+
+            <!-- Activity -->
+            <td>{% if question_set.is_active %}<i data-toggle="tooltip" title="Active" class="w3-text-green fa fa-circle"></i>{% else %}<i title="Not Active" data-toggle="tooltip" class="w3-text-red fa fa-circle"></i>{% endif %}</td>
+              
+            <td>{{ question_set.updated_on }}</td>
+
+            <td><a href="{% url 'question_set_edit' question_set_slug=question_set.slug %}" class="w3-tiny  btn btn-success" title="Edit"><i class="fa fa-pencil-alt"></i></a>
+              <a href="{% url 'question_set_delete' question_set_slug=question_set.slug %}" class="w3-tiny  btn btn-danger" title="Delete"><i class="fa fa-minus"></i></a>
+            </td>
+          </tr>
+          {% empty %}
+          <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no data
+            are here !</div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

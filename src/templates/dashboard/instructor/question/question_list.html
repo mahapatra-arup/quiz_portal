@@ -1,0 +1,74 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block content %}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-leaf"></i>
+      Question
+    </h3>
+
+    <span class="float-right"><a href="{% url 'question_add' %}" class="btn btn-primary"><i
+          class="fa fa-plus"></i> Add New</a></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th>Summary</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Points</th>
+            <th>Subject Topic</th>
+            <th>Image</th>
+            <th>Active</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+          {% for question in obj_question %}
+          <tr>
+            <td class="w3-dark-gray">
+              {{ forloop.counter }}.
+            </td>
+
+            <td>{{ question.summary }}</td>
+            <td>{{ question.type }}</td>
+            <td>{{ question.description }}</td>
+            <td class="text-right">{{ question.points }}</td>
+            <td>{{ question.subject_topic }}</td>
+
+
+            {% if question.question_img %}
+            <td><img src="{{question.get_questionimg_url}}" class="img-thumbnail img-size-32" /></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            <!-- Activity -->
+            <td>{% if question.is_active %}<i data-toggle="tooltip" title="Active" class="w3-text-green fa fa-circle"></i>{% else %}<i title="Not Active" data-toggle="tooltip" class="w3-text-red fa fa-circle"></i>{% endif %}</td>
+              
+
+            <td><a href="{% url 'question_edit' question_slug=question.slug %}" data-toggle="tooltip" class="w3-tiny btn btn-success" title="Edit"><i class="fa fa-pencil-alt"></i></a>
+              <a href="{% url 'question_delete' question_slug=question.slug %}" data-toggle="tooltip" class="w3-tiny btn btn-danger" title="Delete"><i class="fa fa-minus"></i></a>
+            </td>
+          </tr>
+          {% empty %}
+          <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no data
+            are here !</div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{{title}} - Online Quiz/Examination Portal |Instructor Dashboard</title>
+    <link rel="shortcut icon" href="/media/logo/favicon.png' %}">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="title" content="{{ title }}" />
+    <meta name="description" content="{{ description|truncatechars:160 }}" />
+    <meta name="keywords" content="{{ keywords }}" />
+    <meta name="author" content="{{ author }}" />
+    <meta name="robots" content="index, follow">
+    {% block description %}
+    {% endblock %}
+
+    <!-- Style -->
+    {% include "dashboard/includes/admin_style.html" %}
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body class="hold-transition sidebar-mini layout-navbar-fixed">
+    <div class="wrapper">
+
+        <!-- Message  : -->
+        {% include "includes/toast_message.html" %}
+        <!--/.  Message  : -->
+
+        <!-- Navbar -->
+        {% include "dashboard/includes/admin_navbar.html" %}
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        {% if user.is_instructor %}
+        {% include "dashboard/includes/admin_sidebar.html" %}
+        {% else %}
+        {% include "dashboard/includes/admin_sidebar_student.html" %}
+        {% endif %}
+
+
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <!-- Content Header (Page header) -->
+            {% include "dashboard/includes/admin_contentheader.html" %}
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    {% block content %}
+
+                    {% endblock %}
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Footer -->
+        {% include "dashboard/includes/admin_footer.html" %}
+        <!-- /. Footer -->
+
+        <!-- Control Sidebar -->
+        {% include "dashboard/includes/control_sidebar.html" %}
+        <!-- /.control-sidebar -->
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- Script -->
+    {% include "dashboard/includes/admin_script.html" %}
+
+    <!-- External Js Block -->
+    {% block scripts %}{% endblock %}
+
+    <!-- Ajax Defult Submit Loading -->
+    <script>
+        $(document).ready(function () {
+            $(document).ajaxStart(function () {
+                $("#wait").css("display", "block");
+            });
+            $(document).ajaxComplete(function () {
+                $("#wait").css("display", "none");
+            });
+        });
+    </script>
+    <div id="wait"
+        style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;">
+        <img src='/media/logo/favicon.png' width="64" height="64" /><br>Loading..</div>
+        <!-- //Ajax Defult Submit Loading -->
+
+    <!-- GLobal CSS -->
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+
+
+</body>
+
+</html>

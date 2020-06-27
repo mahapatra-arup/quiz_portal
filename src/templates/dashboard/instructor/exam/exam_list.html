@@ -1,0 +1,100 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block content %}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-leaf"></i>
+      Exam
+    </h3>
+
+    <span class="float-right"><a href="{% url 'exam_add' %}" class="btn btn-primary"><i class="fa fa-plus"></i> Add
+        New</a></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th>Name</th>
+            <th>Question Paper</th>
+            <th>Start Date Time</th>
+            <th>End Date Time</th>
+            <th>Pass Percentage</th>
+            <th>Instructions</th>
+            <th>Is Active</th>
+            <th>Is Trial</th>
+            <th>Exam Date Expired</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+          {% for exm in obj_exam %}
+          <tr>
+            <td class="w3-dark-gray">
+              {{ forloop.counter }}.
+            </td>
+
+            <td>{{ exm.name }}</td>
+            <td>{{ exm.questionpaper }}</td>
+            <td>{{ exm.start_date_time|date:"D d M Y" }} <br> Time:
+                {{ exm.start_date_time|time:"H:i" }}</td>
+            <td>{{ exm.end_date_time|date:"D d M Y" }} <br>Time: {{ exm.end_date_time|time:"H:i" }}</td>
+           
+            <td class="text-right">{{ exm.pass_per }}</td>
+            <td>{{ exm.instructions|truncatechars:10 }}</td>
+
+            
+            <!-- Activity -->
+            <td>{% if exm.is_active %}<i data-toggle="tooltip" title="Active"
+                class="w3-text-green fa fa-circle"></i>{% else %}<i title="Not Active" data-toggle="tooltip"
+                class="w3-text-red fa fa-circle"></i>{% endif %}</td>
+
+            <td>{{ exm.is_trial }}</td>
+
+            <td>
+              <!-- Exam Date Expire or not Check -->
+              {% now "d-m-Y" as todays_date %}
+              {% now "H:i" as todays_time %}
+              {% if todays_date < exm.end_date_time|date:"d-m-Y"  %}
+              <i class="bg-green p-1">Active</i>
+              {% if  todays_time < exm.end_date_time|time:"H:i" %}
+              <i class="bg-green p-1">Active</i>
+              {% else %}
+                
+              {% endif %}
+              <i class="bg-red p-1">Expired</i>
+              {% else %}
+              <i class="bg-red p-1">Expired</i>
+              {% endif %}
+              </td>
+
+            <!-- Action -->
+            <td><a href="#" data-toggle="tooltip" class="w3-tiny btn btn-success" title="Edit"><i
+                  class="fa fa-pencil-alt"></i></a>
+              <a href="#" data-toggle="tooltip" class="w3-tiny btn btn-danger" title="Delete"><i
+                  class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="100%">
+              <div class="alert alert-warning" role="alert"><strong class="fa fa-memory"></strong> &nbsp;There are no
+                data are here !</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

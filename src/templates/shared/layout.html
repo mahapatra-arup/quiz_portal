@@ -1,0 +1,108 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> {{title}} - Pytube </title>
+	<link rel="shortcut icon" href="/media/logo/favicon.png' %}">
+	
+	<!-- <meta name="title" content="{{ title }}" />
+			<meta name="description" content="{{ description|truncatechars:160 }}" />
+			<meta name="keywords" content="{{ keywords }}" />
+			<meta name="author" content="{{ author }}" />
+			<meta name="robots" content="index, follow"> -->
+	
+
+	<!--CSS Style-===================================================================-->
+	<link rel="stylesheet" href="{% static 'adminlte/plugins/fontawesome-free/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'adminlte/dist/css/adminlte.min.css' %}">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<!-- STYLESHEETS : end -->
+	<!-- =========================================================================== -->
+
+	{% block extra_css %}
+	{% endblock %}
+</head>
+
+<body>
+	<!-- Message show : -->
+	{% include "includes/toast_message.html" %}
+
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a class="navbar-brand" href="#">Quizer</a>
+		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="navbar-collapse collapse" id="navbarsExampleDefault" style="">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'admin_view' %}">Admin LogIn<span class="sr-only">(S/I)</span></a>
+				</li>
+
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com/" id="dropdown01"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item"
+							href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Action</a>
+						<a class="dropdown-item" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Another
+							action</a>
+						<a class="dropdown-item" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Something
+							else here</a>
+					</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'user_create_view' %}">Register</a>
+			</li>
+		</div>
+	</nav>
+
+	<main role="main">
+
+		<div class="container">
+			<br><br><br><br>
+			{% block content %}
+
+			{% endblock %}
+		</div> <!-- /container -->
+
+	</main>
+
+	<footer class="container">
+		<p>© Company 2020</p>
+	</footer>
+
+
+
+
+
+	<!-- SCRIPTS : begin -->
+	<!-- jQuery -->
+	<script src="{% static  'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+	<script src="{% static  'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<!--===========================================================================-->
+
+	{% block scripts %}
+	{% endblock %}
+
+</body>
+
+</html>

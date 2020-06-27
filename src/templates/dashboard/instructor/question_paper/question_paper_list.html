@@ -1,0 +1,84 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block content %}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-leaf"></i>
+      Question
+    </h3>
+
+    <span class="float-right"><a href="{% url 'question_paper_add' %}" class="btn btn-primary"><i
+          class="fa fa-plus"></i> Add New</a></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="w3-table-all w3-centered w3-hoverable w3-tiny table-bordered">
+        <thead>
+          <tr class="bg-gradient-info">
+            <th></th>
+            <th>Paper Code</th>
+            <th>Total Marks</th>
+            <th>Time Duration</th>
+            <th>Question Sets</th>
+            <th>Subject Topic</th>
+            <th>Clas</th>
+            <th>Active</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+          {% for ques_paper in obj_question_paper %}
+          <tr>
+            <td class="w3-dark-gray">
+              {{ forloop.counter }}.
+            </td>
+
+            <td>{{ ques_paper.paper_code }}</td>
+            <td class="text-right">{{ ques_paper.total_marks }}</td>
+            <td>{{ ques_paper.time_duration }}</td>
+
+            <td>
+              {% for q in ques_paper.question_set.all %}
+              {{ forloop.counter }}. {{q.name}} <br>
+              {%empty%}
+              <span>N/A</span>
+              {% endfor %}
+            </td>
+
+            <td>{{ ques_paper.subject_topic }}</td>
+            <td>{{ ques_paper.clas }}</td>
+
+            <!-- Activity -->
+            <td>{% if ques_paper.is_active %}<i data-toggle="tooltip" title="Active"
+                class="w3-text-green fa fa-circle"></i>{% else %}<i title="Not Active" data-toggle="tooltip"
+                class="w3-text-red fa fa-circle"></i>{% endif %}</td>
+
+            <!-- Action -->
+            <td><a href="#" data-toggle="tooltip" class="w3-tiny btn btn-success" title="Edit"><i
+                  class="fa fa-pencil-alt"></i></a>
+              <a href="#" data-toggle="tooltip" class="w3-tiny btn btn-danger" title="Delete"><i
+                  class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="100%">
+              <div class="alert alert-warning" role="alert"><strong class="fa fa-memory"></strong> &nbsp;There are no
+                data are here !</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
