@@ -30,7 +30,7 @@ INSTALLED_APPS += [
     'users',
     'core',
 
-    #SHOP
+    #
     'django.contrib.sites',
     # 'allauth',
     # 'allauth.account',
@@ -55,11 +55,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #     'django.contrib.auth.backends.ModelBackend',
 #     'allauth.account.auth_backends.AuthenticationBackend'
 # )
-
-
-
-# after login redirect to
-# LOGIN_REDIRECT_URL = '/'
 
 #MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
@@ -115,8 +110,14 @@ REPLY_EMAIL = 'info@pytube.net'
 PRODUCTION_URL = 'pytube.net'
 
 
-#blog sign
+#Blog Sign
 PORTAL_AUTHOR = "Online Quiz Portal | Arup Mahapatra"
+
+# Login / Logout
+LOGIN_URL="dashboard/account/login.html"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL='/'
+
 
 
 

@@ -1,0 +1,50 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<div class="col-md-6  justify-content-center mx-auto">
+    <div class="card card-primary w3-card-4">
+        <div class="card-header">
+            <div class="card-title fa fa-user-alt"> &nbsp;{{ title }}</div>
+        </div>
+
+        <div class="card-body">
+
+            <section id="loginForm">
+                <form action="." method="post" class="form-horizontal">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_username" class="control-label">User name</label>
+                        <div class="col-md-10">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password" class="control-label">Password</label>
+                        <div class="col-md-10">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="hidden" name="next" value="/" />
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    {% if form.errors %}
+                    <p class="validation-summary-errors text-red">Please enter a correct user name and password.</p>
+                    {% endif %}
+                </form>
+            </section>
+
+            <!-- Default usser name password -->
+            <div class="alert alert-default-info"><span class="fa fa-info-circle"></span> Student :- Username : student / password : 123 
+                <br/>Instructor :- Username : instractor / password : 123
+                <br/>Admin :- Username : admin / password : admin@123
+             </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

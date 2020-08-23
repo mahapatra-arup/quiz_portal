@@ -9,16 +9,19 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
+
     <!-- Sidebar user (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="col-md-12 user-panel  text-center w3-margin-top">
       <div class="image">
         <!-- <img class="img-circle elevation-2" alt="User Image" src="logo/user.png"> -->
         <i class="nav-icon fas fa-user-circle fa-2x w3-text-white"></i>
       </div>
+      <br>
       <div class="info">
         <a class="d-block" href="#"> {{request.user}}</a>
       </div>
     </div>
+
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -34,7 +37,7 @@
             </p>
           </a>
         </li>
-       
+
         <!-- ==Subject Topic==-->
         <li class="nav-item has-treeview">
           <a class="nav-link" href="#">
@@ -58,7 +61,7 @@
                 <p>Create</p>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -85,7 +88,7 @@
                 <p>Create</p>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -113,10 +116,10 @@
               </a>
             </li>
 
-            
+
           </ul>
         </li>
-        
+
 
         <!-- Question ans Set===-->
         <li class="nav-item has-treeview">
@@ -141,7 +144,7 @@
                 <p>Create</p>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -168,7 +171,7 @@
                 <p>Create</p>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -195,7 +198,7 @@
                 <p>Create</p>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -208,7 +211,7 @@
             </p>
           </a>
         </li> -->
-        
+
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="nav-icon far fa-circle text-info"></i>
@@ -219,6 +222,14 @@
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
+
+    <!-- log out -->
+    <hr/>
+    <div class="col-md-12 text-center">
+      <a class="btn btn-danger w3-round-xxlarge text-light " title="Log Out"
+        href="{% url 'logout' %}"><span class="fa fa-power-off "></span></a>
+    </div>
+
   </div>
   <!-- /.sidebar -->
 </aside>

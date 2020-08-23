@@ -1,6 +1,6 @@
 from django import forms
 from datetime import datetime, timedelta 
-
+from django.contrib.auth.forms import AuthenticationForm
 
 try:
     from string import letters
@@ -114,3 +114,17 @@ class UserRegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+"""
+Log In  forms.
+"""
+class UserAuthenticationForm(AuthenticationForm):
+    """Authentication form which uses """
+    username = forms.CharField(max_length=254,
+                               widget=forms.TextInput({'class': 'form-control','placeholder': 'User name'}))
+                                   
+    password = forms.CharField(label="Password",
+                               widget=forms.PasswordInput({'class': 'form-control','placeholder':'Password'}))
+                                   
+                                   

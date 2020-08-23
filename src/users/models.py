@@ -3,8 +3,9 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 #===================================================================================
-"""Admin Devider """
+
 class User(AbstractUser):
+	"""User Abstract Class Create """
 	is_student = models.BooleanField(default=False)
 	is_instructor = models.BooleanField(default=False)
 	

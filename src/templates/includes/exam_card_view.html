@@ -1,0 +1,68 @@
+{% load exam_tags %}
+
+<div class="card card-primary">
+
+    <div class="card-body row">
+
+        {% for exam in exam_list %}
+        <div class="col-md-2">
+            <div class="card card-warning w3-card-4">
+               
+                <img class="card-img-top"  src="{{exam.get_featured_image_url|default_if_none:'#'}}"  height="120" alt="Featured Image">
+                
+                <div class="card-img-overlay">
+                    <span class="bg-warning "> {{exam.instructions|truncatewords:10}}</span>
+                </div>
+
+                <div class="card-body text-center">
+                    <h4 class="card-title"> {{exam.name}}</h4>
+                </div>
+
+                <div class="card-footer text-right" style="z-index:999!important">
+
+                {% comment %} Trail Or Not Show {% endcomment %}
+                    {% if exam.is_trial %}
+                        <span class="float-left btn btn-warning disabled">
+                            Trail
+                        </span>
+
+                        {% else %}
+
+                    <div class="text-right">
+                                   
+                        <form name = "form" action = "{% url "student_exam_request" %}" method = "POST">
+                        {% csrf_token %}
+                        <input type="hidden" id="exam_slug" name="exam_slug" value="{{exam.slug}}"> 
+                   
+
+                        <input type="submit" id="btnSubmit" name="btnSubmit" class="clsSubmit btn btn-primary" value="{{exam|exam_request_value}}">
+                        </form>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<script>
+ $(document).ready(function() {
+             //Request
+            $('input[type=submit][class*="clsSubmit"][value="Request"]').addClass('btn btn-primary');
+            
+            //Cancel Request
+            $('input[type=submit][class*="clsSubmit"][value="Cancel Request"]').addClass('btn btn-danger');
+
+            //Approve
+            $('input[type=submit][class*="clsSubmit"][value="Approve"]').addClass('btn btn-success');
+            //Diseable approve button 
+            $('input[type=submit][class*="clsSubmit"][value="Approve"]').attr('disabled', 'true');
+
+         });
+</script>
+

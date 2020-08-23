@@ -8,6 +8,7 @@
         {
             "name": "Python: Current File",
             "type": "python",
+            "pythonPath": "${workspaceFolder}\\src\\env\\Scripts\\python.exe",
             "request": "launch",
             "program": "${workspaceFolder}\\src\\manage.py",
             "args": [

@@ -4,9 +4,8 @@ from django.core.validators import RegexValidator
 from django.utils.text import slugify
 from quizportal.tools.utils import generate_unique_slug
 import uuid
-
-
 from users.models import User
+
 
 IDENTITY_CHOICE=(('Aadhaar Card','Aadhaar Card'),
 ('Voter Card','Voter Card'),
@@ -14,18 +13,15 @@ IDENTITY_CHOICE=(('Aadhaar Card','Aadhaar Card'),
 ('DOB Certificate','DOB Certificate'),
 ('Secondary Admite','Secondary Admite')
 )
-
 INSTRUCTOR_REQUEST_CHOICE = (
     ('APPROAVE', 'APPROAVE'),
     ('REJECT', 'REJECT'),
 ) 
-
 GENDER_CHOICE=(
     ('MALE','MALE'),
     ('FEMALE','FEMALE'),
     ('OTHERS','OTHERS')
 )
-
 QUESTION_TYPE_CHOICE = (
         ("mcq", "Single Correct Choice"),
         # ("mcc", "Multiple Correct Choices"),
@@ -40,8 +36,8 @@ QUESTION_TYPE_CHOICE = (
 
 
 #===================================================================================
-"""Student Login Details """
 class Student_Details(models.Model):
+    """ Store Student details"""
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,12}$',
                                  message="Phone number must be entered in the define format")
 
@@ -79,6 +75,13 @@ class Student_Details(models.Model):
 
         db_table = "Student_Details"
 
+    def get_student_img_url(self):
+         if self.student_img and hasattr(self.student_img, 'url'):
+          return self.student_img.url
+
+    def get_identity_doc_url(self):
+         if self.identity_doc and hasattr(self.identity_doc, 'url'):
+          return self.identity_doc.url
 
     def __str__(self):
         return self.dispay_name
@@ -91,11 +94,8 @@ class Student_Details(models.Model):
             self.slug = generate_unique_slug(Student_Details, self.display_name)
         super().save(*args, **kwargs)
 
-    def get_image_url(self):
-         if self.photo and hasattr(self.photo, 'url'):
-          return self.photo.url
-
 class Student_Register(models.Model):
+    """ store Student Register details"""
     student=models.ForeignKey(Student_Details, on_delete=models.CASCADE)
     clas=models.CharField("Class", max_length=20)
     roll_no=models.CharField(max_length=20, blank=True, null=True,help_text='Roll No Like a Class No/Registration No/others')
@@ -111,8 +111,8 @@ class Student_Register(models.Model):
         return self.name
 
 #===================================================================================
-""" Instructor details"""
 class Instructor(models.Model):
+    """ Instructor/Teachers details"""
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,help_text='create user because one user is a one staff')
     display_name= models.CharField(max_length=50)
     gender= models.CharField(choices=GENDER_CHOICE,max_length=50, default='Male')
@@ -158,6 +158,14 @@ class Instructor(models.Model):
     def __str__(self):
         return self.display_name
 
+    def get_instructor_img_url(self):
+         if self.instructor_img and hasattr(self.instructor_img, 'url'):
+          return self.instructor_img.url
+
+    def get_identity_doc_url(self):
+         if self.identity_doc and hasattr(self.identity_doc, 'url'):
+          return self.identity_doc.url
+
     class Meta:
         db_table = "Instructor"
         # unique_together = ('name', 'code')
@@ -166,9 +174,8 @@ class Instructor(models.Model):
         verbose_name_plural = 'Instructors'
 
 #===================================================================================
-""" Class And Subject and topic"""
-
 class Clas(models.Model):
+    """ Store Student Class  """
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name=models.CharField("Class Name", max_length=100)
     order_by = models.PositiveIntegerField(default=0)
@@ -186,6 +193,7 @@ class Clas(models.Model):
         verbose_name_plural = 'Class'
 
 class Subject(models.Model):
+    """ Store Subject """
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name=models.CharField("Subject Name",unique=True, max_length=100)
     code=models.CharField("Subject Code", max_length=100)
@@ -206,6 +214,8 @@ class Subject(models.Model):
         verbose_name_plural = 'Subject'
 
 class Subject_Topic(models.Model):
+    """ Store Subject Topic Like Subject Chapter """
+
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     name=models.CharField("Subject Name",unique=True, max_length=100)
@@ -224,9 +234,8 @@ class Subject_Topic(models.Model):
         verbose_name_plural = 'Subject Topic'
 
 #===================================================================================
-"""Question"""
 class Question(models.Model):
-    """Question for a quiz."""
+    """Store Questions for a quiz."""
 
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -256,8 +265,6 @@ class Question(models.Model):
    
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
-  
-
     
     # # Tags for the Question.
     # tags = TaggableManager(blank=True)
@@ -275,15 +282,14 @@ class Question(models.Model):
 
 #===================================================================================
 class Question_Option(models.Model):
-    """Option for Question for a quiz."""
+    """ Store Option for Question for a quiz. """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     option_name = models.CharField(max_length=150, blank=True, null=True)
-    img_option = models.FileField(upload_to='option_img', blank=True, null=True)
+    img_option = models.FileField(upload_to='question/option_img/%Y/%m/', blank=True, null=True)
     answer = models.BooleanField(default=True)
     order_by=models.PositiveIntegerField(default=0)
 
     is_active=models.BooleanField(default=True)
-
     slug = models.SlugField(max_length=100, unique=True,default=uuid.uuid4,help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/')
    
     created_on = models.DateTimeField(auto_now_add=True)
@@ -292,6 +298,10 @@ class Question_Option(models.Model):
     def __str__(self):
         return self.question.summary+': ('+self.option_name+')'
 
+    def get_img_option_url(self):
+         if self.img_option and hasattr(self.img_option, 'url'):
+          return self.img_option.url
+
     class Meta:
         db_table = "Question_Option"
         verbose_name = 'Question Option'
@@ -299,6 +309,7 @@ class Question_Option(models.Model):
 
 #===================================================================================
 class Question_Set(models.Model):
+    """ Store Question Set """
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="Question_Set_User")
     name = models.CharField(max_length=150,help_text='Enter meaningfull Question-Set Name like "2020-Bengali-Set-I"')
     
@@ -321,6 +332,7 @@ class Question_Set(models.Model):
         verbose_name_plural = 'Question Set'
 
 class Question_Set_Question(models.Model):
+    """ Add Questions on Question set """
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question=models.ForeignKey(Question,on_delete=models.CASCADE)
     question_set=models.ForeignKey(Question_Set,on_delete=models.CASCADE)
@@ -336,7 +348,7 @@ class Question_Set_Question(models.Model):
 
 #===================================================================================
 class QuestionPaper(models.Model):
-    """Question paper stores the detail of the questions."""
+    """Store multiple   Question Set   """
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     paper_code=models.CharField(max_length=256,unique=True)
     
@@ -364,6 +376,7 @@ class QuestionPaper(models.Model):
 
 #===================================================================================
 class Exam(models.Model):
+    """ Ready to ExamPaper For quiz """
     name=models.CharField(max_length=256)
 
     questionpaper=models.ForeignKey(QuestionPaper, on_delete=models.CASCADE)
@@ -378,6 +391,8 @@ class Exam(models.Model):
     is_trial = models.BooleanField(default=False)
     instructions = models.TextField('Instructions for Students',
                                     default=None, blank=True, null=True)
+
+    featured_image=models.ImageField(upload_to='exam/images/%Y/%m/', blank=True, null=True)                                
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     # view_answerpaper = models.BooleanField('Allow student to view their answer\
     #                                         paper', default=False)
@@ -388,11 +403,49 @@ class Exam(models.Model):
    
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
+    
     def __str__(self):
         return str(self.name)
+
+    def get_featured_image_url(self):
+         if self.featured_image and hasattr(self.featured_image, 'url'):
+          return self.featured_image.url
 
     class Meta:
         db_table = "Exam"
         verbose_name = 'Exam'
-        verbose_name_plural = 'Exam'                                
+        verbose_name_plural = 'Exam'           
+
+    
+    def get_featured_image_url(self):
+         if self.featured_image and hasattr(self.featured_image, 'url'):
+          return self.featured_image.url
+          
+#===================================================================================
+class ExamRequestStatus(models.Model):
+    """Student Send The Request For Exam"""
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    exam=models.ForeignKey(Exam,on_delete=models.CASCADE)
+    
+    #After Approve Student For exam , Then Admin Set The Question-Set
+    question_set = models.ForeignKey(Question_Set,on_delete=models.CASCADE,null=True,blank=True)
+
+    request=models.BooleanField(default=False)
+    approved=models.BooleanField(default=False)
+
+    # Only Rejected track
+    cancelled=models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.user)
+
+    class Meta:
+        db_table = "ExamRequestStatus"
+        verbose_name = 'Student Exam Request'
+        verbose_name_plural = 'Student Exam Request'
+
+#===================================================================================
+
+
+    
 

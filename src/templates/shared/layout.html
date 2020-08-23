@@ -7,13 +7,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> {{title}} - Pytube </title>
 	<link rel="shortcut icon" href="/media/logo/favicon.png' %}">
-	
-	<!-- <meta name="title" content="{{ title }}" />
+	<!-- jQuery -->
+	<script src="{% static  'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+			
+			<meta name="title" content="{{ title }}" />
 			<meta name="description" content="{{ description|truncatechars:160 }}" />
 			<meta name="keywords" content="{{ keywords }}" />
 			<meta name="author" content="{{ author }}" />
-			<meta name="robots" content="index, follow"> -->
-	
+			<meta name="robots" content="index, follow">
+
 
 	<!--CSS Style-===================================================================-->
 	<link rel="stylesheet" href="{% static 'adminlte/plugins/fontawesome-free/css/all.min.css' %}">
@@ -40,44 +42,36 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="navbar-collapse collapse" id="navbarsExampleDefault" style="">
+		<div class="navbar-collapse collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				</li>
 
 				<li class="nav-item active">
-					<a class="nav-link" href="{% url 'admin_view' %}">Admin LogIn<span class="sr-only">(S/I)</span></a>
+					<a class="nav-link bg-gradient-blue" href="#"> <span class="fa fa-home"></span></a>
 				</li>
 
-
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="http://example.com/" id="dropdown01"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-					<div class="dropdown-menu" aria-labelledby="dropdown01">
-						<a class="dropdown-item"
-							href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Action</a>
-						<a class="dropdown-item" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Another
-							action</a>
-						<a class="dropdown-item" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/#">Something
-							else here</a>
-					</div>
+				<li class="nav-item active">
+					<a class="nav-link" href="/admin/">Admin LogIn<span class="sr-only">(S/I)</span></a>
 				</li>
+
+				
+
+				<li class="nav-item">
+					<a class="btn bg-gradient-danger" href="{% url 'user_create_view' %}">Register</a>
+				</li>
+
+			
+
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'user_create_view' %}">Register</a>
-			</li>
+			<!-- Log in Log out -->
+			<div class="form-inline my-2 my-lg-0">
+				{% include 'dashboard/account/loginpartial.html' %}
+			</div>
 		</div>
 	</nav>
 
 	<main role="main">
 
-		<div class="container">
+		<div class="container-fluid">
 			<br><br><br><br>
 			{% block content %}
 
@@ -95,10 +89,7 @@
 
 
 	<!-- SCRIPTS : begin -->
-	<!-- jQuery -->
-	<script src="{% static  'adminlte/plugins/jquery/jquery.min.js' %}"></script>
 	<script src="{% static  'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-	<!--===========================================================================-->
 
 	{% block scripts %}
 	{% endblock %}

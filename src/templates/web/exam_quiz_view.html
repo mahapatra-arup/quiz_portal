@@ -1,0 +1,580 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{title}} - Pytube </title>
+    <link rel="shortcut icon" href="/media/logo/favicon.png' %}">
+    <!-- jQuery -->
+    <script src="{% static  'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+
+    <meta name="title" content="{{ title }}" />
+    <meta name="description" content="{{ description|truncatechars:160 }}" />
+    <meta name="keywords" content="{{ keywords }}" />
+    <meta name="author" content="{{ author }}" />
+    <meta name="robots" content="index, follow">
+
+
+    <!--CSS Style-===================================================================-->
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/adminlte.min.css' %}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- STYLESHEETS : end -->
+    <!-- =========================================================================== -->
+
+    <link rel="stylesheet" href="{% static 'css/quiz-custom.css' %}">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- Message show : -->
+    {% include "includes/toast_message.html" %}
+
+
+
+    <div id="all">
+
+        <input type="hidden" id="hdfTestDuration" value="60">
+        <input type="hidden" id="ExamID" value="2">
+        <input type="hidden" id="datalink" value="https://data.nta.ac.in">
+
+
+        <div class="container">
+            <div class="row">
+
+                {% comment %} {% endcomment %}
+                <div class="col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-leaf" aria-hidden="true">&nbsp;</i> Details
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2 text-center border">
+                                    <i class="fa fa-user fa-4x"></i>
+                                </div>
+                                <div class="col-md">
+                                    <p class="card-text">
+                                        Candidate Name : <span style="color: #f7931e; font-weight: bold">[Your
+                                            Name]</span> <br />
+                                        Exam Name : <span style="color: #f7931e; font-weight: bold">UGC-NET</span><br />
+                                        Subject Name : <span style="color: #f7931e; font-weight: bold">Yoga-Paper -
+                                            2-Jun-2019</span><br />
+                                        Remaining Time : <span class="timer-title time-started">00:48:31</span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} <div class="col-md-3 col-sm-12 pull-right" id="divdrplngcng" style="margin: 15px 0 0 0;">
+                    <select id="drpLanguage" class="form-control drpLanguage" data-role="none" name="drplanguage">
+                        <option value="1">English</option>
+                        <option value="2">Hindi</option>
+                    </select>
+                    <input type="hidden" id="hdfCurrentLng" value="1">
+                </div>{% endcomment %}
+
+            </div>
+        </div>
+
+
+        {% comment %} Main Exam Content {% endcomment %}
+        <div class="container">
+
+            <div class="row exam-paper">
+
+                {% comment %} Question {% endcomment %}
+                <div class="col-md-8" id="quest" style="padding: 0">
+                    <div class="table-responsive">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="card card-default w3-card-4">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="btn btn-default " id="btnPrevQue">
+                                                    <i class="fa fa-chevron-circle-left text-warning"
+                                                        aria-hidden="true"></i> </a>&nbsp;&nbsp;
+                                                <a href="javascript:void(0);" class="btn btn-default  float-right"
+                                                    id="btnNextQue"><i class="fa fa-chevron-circle-right text-primary"
+                                                        aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                            </div>
+                                            <div class="card-body mb0">
+
+                                                <div style="" class="tab-content div-question mb0" id="page01">
+                                                    <input type="hidden" class="hdfQuestionID">
+                                                    <input type="hidden" class="hdfPaperSetID">
+                                                    <input type="hidden" value="2" class="hdfCurrectAns">
+                                                    <input type="hidden" value="2" class="hdfCorrectAnsMarks">
+                                                    <input type="hidden" value="0" class="hdfInCorrectAnsMarks">
+                                                    <div class="question-height">
+                                                        <h4 class="question-title"> Question
+                                                            1: <img src="{% static 'quiz_icons/down.png' %}"
+                                                                class="btndown pull-right">
+                                                        </h4>
+
+                                                        <img alt="Question" src="./NTA_files/1_20200630144231.jpg"
+                                                            data-questionno="1" class="img-responsive MQ"> <br>
+                                                        <table class="table table-borderless mb0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td> <input type="radio" value="1"
+                                                                            name="radiospage01" id="rOption01_1">
+                                                                        1 ) </td>
+                                                                    <td> <input type="radio" value="2"
+                                                                            name="radiospage01" id="rOption01_1">
+                                                                        2 ) </td>
+                                                                    <td> <input type="radio" value="3"
+                                                                            name="radiospage01" id="rOption01_1">
+                                                                        3 ) </td>
+                                                                    <td> <input type="radio" value="4"
+                                                                            name="radiospage01" id="rOption01_1">
+                                                                        4 ) </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h4 class="question-footer"> <img src="./NTA_files/up.png"
+                                                                class="btnup pull-right">
+                                                        </h4>
+                                                    </div>
+                                                </div>
+
+                                                <div style="display: none;" class="tab-content div-question mb0"
+                                                    id="page02">
+                                                    <input type="hidden" class="hdfQuestionID">
+                                                    <input type="hidden" class="hdfPaperSetID">
+                                                    <input type="hidden" value="1" class="hdfCurrectAns">
+                                                    <input type="hidden" value="2" class="hdfCorrectAnsMarks">
+                                                    <input type="hidden" value="0" class="hdfInCorrectAnsMarks">
+                                                    <div class="question-height">
+                                                        <h4 class="question-title"> Question
+                                                            2: <img src="./NTA_files/down.png"
+                                                                class="btndown pull-right">
+                                                        </h4>
+
+                                                        <img alt="Question" src="./NTA_files/2_20200630144232.jpg"
+                                                            data-questionno="2" class="img-responsive MQ"> <br>
+                                                        <table class="table table-borderless mb0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td> <input type="radio" value="1"
+                                                                            name="radiospage02" id="rOption02_1">
+                                                                        1 ) </td>
+                                                                    <td> <input type="radio" value="2"
+                                                                            name="radiospage02" id="rOption02_1">
+                                                                        2 ) </td>
+                                                                    <td> <input type="radio" value="3"
+                                                                            name="radiospage02" id="rOption02_1">
+                                                                        3 ) </td>
+                                                                    <td> <input type="radio" value="4"
+                                                                            name="radiospage02" id="rOption02_1">
+                                                                        4 ) </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h4 class="question-footer"> <img src="./NTA_files/up.png"
+                                                                class="btnup pull-right">
+                                                        </h4>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div style="border-top:1px solid #808080;padding-top:10px;"
+                                                    class="col-md-12 col-xs-12 col-sm-12">
+                                                    <button class="mb5 full-width btn btn-success btn-save-answer"><i
+                                                            class="fas fa-save  "></i> Save &amp; Next</button>
+                                                    <button class="mb5 full-width btn btn-default btn-reset-answer"><i
+                                                            class="fa fa-refresh" aria-hidden="true"></i> Clear</button>
+                                                    <button
+                                                        class="mb5 full-width btn btn-warning btn-save-mark-answer">Save
+                                                        &amp; Mark For Review</button>
+                                                    <button class="mb5 full-width btn btn-primary btn-mark-answer">Mark
+                                                        For Review &amp; Next</button>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button class="btn btn-success btn-submit-all-answers float-right"><i
+                                                        class="fas fa-save  "></i> Submit</button>&nbsp;&nbsp;
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="full_screen pull-right"
+                                            style="cursor: pointer; background-color: #000; color: #fff; padding: 5px;">
+                                            <i class="fa fa-angle-right fa-2x"></i>
+                                        </div>
+                                        <div class="collapse_screen hidden pull-right"
+                                            style="cursor: pointer; background-color: #000; color: #fff; padding: 5px;">
+                                            <i class="fa fa-angle-left fa-2x"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {% comment %} Instruction mb0 mt10{% endcomment %}
+                <div class="col-md-4" id="pallette">
+                    <div class="card card-primary ">
+
+                        <div class="card-body">
+
+                        <p class="card-text">
+                            <span>Not Visited</span>
+                            <div class="full-width"> <a class="test-ques-stats que-not-attempted lblNotVisited">77</a> </div>
+                            
+                            <span>Not Answered</span>
+                            <div class="full-width"> <a class="test-ques-stats que-not-answered lblNotAttempted">23</a></div>
+
+<span>Answered</span>
+                            <div class="full-width"> <a class="test-ques-stats que-save lblTotalSaved">0</a> </div>
+                            
+                            <span>Marked for Review</span> 
+                            <div class="full-width"> <a class="test-ques-stats que-mark lblTotalMarkForReview">0</a>       </div>
+
+<span >Answered &amp; Marked for Review  (will be considered for evaluation)</span>
+                            <div> <a class="test-ques-stats que-save-mark lblTotalSaveMarkForReview">0</a>
+                            </div>
+                            
+
+                           </p>
+                        </div>
+                    </div>
+
+
+                    <div class="card card-primary ">
+                        <div class="card-body " style="height:300px;overflow-y:scroll;">
+                            <ul class="pagination test-questions ">
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page01">01</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page02">02</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page03">03</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page04">04</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page05">05</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page06">06</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page07">07</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page08">08</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page09">09</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page10">10</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page11">11</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page12">12</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page13">13</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page14">14</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page15">15</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page16">16</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page17">17</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page18">18</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page19">19</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page20">20</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page21">21</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page22">22</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page23">23</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page24">24</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page25">25</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page26">26</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page27">27</a>
+                                </li>
+                                <li class="active" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page28">28</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page29">29</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page30">30</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page31">31</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page32">32</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page33">33</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page34">34</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page35">35</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page36">36</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page37">37</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page38">38</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page39">39</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page40">40</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page41">41</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques  que-not-answered page-link"
+                                        href="javascript:void(0);" data-href="page42">42</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page43">43</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page44">44</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page45">45</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page46">46</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page47">47</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page48">48</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page49">49</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page50">50</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page51">51</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page52">52</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page53">53</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page54">54</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page55">55</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page56">56</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page57">57</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page58">58</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page59">59</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page60">60</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page61">61</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page62">62</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page63">63</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page64">64</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page65">65</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page66">66</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page67">67</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page68">68</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page69">69</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page70">70</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page71">71</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page72">72</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page73">73</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page74">74</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page75">75</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page76">76</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page77">77</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page78">78</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page79">79</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page80">80</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page81">81</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page82">82</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page83">83</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page84">84</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page85">85</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page86">86</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page87">87</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page88">88</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page89">89</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page90">90</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page91">91</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page92">92</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page93">93</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page94">94</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page95">95</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page96">96</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page97">97</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page98">98</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page99">99</a>
+                                </li>
+                                <li class="page-item" data-seq="1"><a class="test-ques que-not-attempted page-link "
+                                        href="javascript:void(0);" data-href="page100">100</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <!-- SCRIPTS : begin -->
+    <script src="{% static  'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static  'js/Begin.js' %}"></script>
+</body>
+
+</html>

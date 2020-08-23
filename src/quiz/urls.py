@@ -61,5 +61,6 @@ urlpatterns = [
     # Exam
     path('instructor/exam/add',ExamCreateView.as_view(),name='exam_add'),
     path('instructor/exam',ExamListView.as_view(),name='exam_list'),
+
     
 ]

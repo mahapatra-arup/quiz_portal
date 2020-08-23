@@ -6,6 +6,13 @@ from django.http import JsonResponse
 from django.contrib import messages
 from quizportal.send_emails import send_user_mail
 
+from datetime import datetime
+from  quiz.forms import forms
+from django.contrib.auth.views import LoginView,LogoutView
+
+#//Settings
+from quizportal.settings.development import LOGIN_URL,LOGIN_REDIRECT_URL,LOGOUT_REDIRECT_URL
+
 
 class StudentIndexView(TemplateView):
     template_name = "dashboard/student/index.html"
@@ -37,3 +44,15 @@ class UserCreateView(CreateView):
     def form_invalid(self, form):
         return JsonResponse({"error": True, "response": form.errors})
     
+class UserLoginView(LoginView):
+    template_name=LOGIN_URL
+    authentication_form= forms.UserAuthenticationForm
+    extra_context={
+            'title': 'Log in',
+            'year': datetime.now().year,
+        }  
+
+class UserLogoutView(LogoutView):
+    next_page=LOGOUT_REDIRECT_URL
+
+
